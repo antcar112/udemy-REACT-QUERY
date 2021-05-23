@@ -1,5 +1,33 @@
+body {
+  background-color: black;
+  color: goldenrod;
+  margin: 10px;
+}
+
 .loading {
   position: fixed;
   top: 5px;
   right: 5px;
+}
+
+.tabs {
+  margin-bottom: 24px;
+}
+
+.tabs button {
+  color: goldenrod;
+  padding: 10px 50px;
+  outline: none;
+  border: 1px goldenrod solid;
+  border-radius: 3px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  background-color: black;
+}
+.tabs button[disabled] {
+  color: white;
+  background-color: goldenrod;
+  cursor: auto;
 }
