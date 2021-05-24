@@ -15,7 +15,6 @@ import { AppointmentDateMap } from '../types';
 import { getAvailableAppointments } from '../utils';
 import { getMonthYearDetails, getNewMonthYear, MonthYear } from './monthYear';
 
-// for useQuery call
 async function getAppointments(
   year: string,
   month: string,
@@ -24,7 +23,11 @@ async function getAppointments(
   return data;
 }
 
-// types for hook return object
+const commonQueryOptions = {
+  staleTime: 0,
+  cacheTime: 5 * 60 * 1000, // 5 minutes
+};
+
 interface UseAppointments {
   appointments: AppointmentDateMap;
   monthYear: MonthYear;
@@ -56,6 +59,7 @@ export function useAppointments(): UseAppointments {
     queryClient.prefetchQuery(
       [queryKeys.appointments, nextMonthYear.year, nextMonthYear.month],
       () => getAppointments(nextMonthYear.year, nextMonthYear.month),
+      commonQueryOptions,
     );
   }, [monthYear, queryClient]);
 
@@ -76,6 +80,10 @@ export function useAppointments(): UseAppointments {
     () => getAppointments(monthYear.year, monthYear.month),
     {
       select: showAll ? undefined : selectFn,
+      ...commonQueryOptions,
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
     },
   );
 
