@@ -15,7 +15,6 @@ async function getAppointments(
   month: string,
 ): Promise<AppointmentDateMap> {
   const { data } = await axiosInstance.get(`/appointments/${year}/${month}`);
-  console.log(data);
   return data;
 }
 
@@ -72,7 +71,7 @@ export function useAppointments(): UseAppointments {
   const fallback = {};
 
   const { data: appointments = fallback } = useQuery(
-    queryKeys.appointments,
+    [queryKeys.appointments, monthYear.year, monthYear.month],
     () => getAppointments(monthYear.year, monthYear.month),
   );
 
