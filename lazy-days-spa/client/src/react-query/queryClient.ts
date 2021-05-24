@@ -15,10 +15,10 @@ export function queryErrorHandler(error: unknown): void {
       : 'error connecting to server';
 
   // prevent duplicate toasts
-  // toast.closeAll();
+  toast.closeAll();
   toast({ id, title, status: 'error', variant: 'subtle', isClosable: true });
 }
 
 export const queryClient = new QueryClient({
-  defaultOptions: { queries: { onError: queryErrorHandler, retry: 2 } },
+  defaultOptions: { queries: { onError: queryErrorHandler } },
 });
