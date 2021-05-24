@@ -59,13 +59,8 @@ export function useAppointments(): UseAppointments {
     );
   }, [monthYear, queryClient]);
 
-  /** ****************** START 2: filter appointments  ****************** */
-  // State and functions for filtering appointments to show all or only available
   const [showAll, setShowAll] = useState(false);
 
-  // We will need imported function getAvailableAppointments here
-  // We need the user to pass to getAvailableAppointments so we can show
-  //   appointments that the logged-in user has reserved (in white)
   const { user } = useUser();
 
   const selectFn = useCallback(
